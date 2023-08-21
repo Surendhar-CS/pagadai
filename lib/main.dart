@@ -30,6 +30,16 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text("Hello World")));
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Pagadai",
+            style: TextStyle(fontSize: 24),
+          ),
+          backgroundColor: Colors.indigo,
+        ),
+        body: Center(
+          child: Text("Hello World"),
+        ));
   }
 }
