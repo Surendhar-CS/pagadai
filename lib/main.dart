@@ -28,7 +28,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _LoginPage = GlobalKey<FormState>();
+  final _passWord = GlobalKey<FormState>();
+  final _userName = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,29 +42,40 @@ class _LoginPageState extends State<LoginPage> {
         ),
         body: Column(children: <Widget>[
           Text("Hello World"),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-            child: TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Enter a Username',
+            child: Form(
+              key: _userName,
+              child: TextFormField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Enter a Username',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter the username';
+                  }
+                  return null;
+                },
               ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-            child: TextFormField(
-              key: _LoginPage,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Enter your Password',
+            child: Form(
+              key: _passWord,
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Enter your Password',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter the password';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return 'please enter';
-              },
             ),
           ),
           Row(
@@ -75,7 +87,8 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () {
                     // Validate returns true if the form is valid, or false otherwise.
                     print('Button Pressed');
-                    if (_LoginPage.currentState!.validate()) {
+                    if (_userName.currentState!.validate() &&
+                        _passWord.currentState!.validate()) {
                       // If the form is valid, display a snackbar. In the real world,
                       // you'd often call a server or save the information in a database.
                       ScaffoldMessenger.of(context).showSnackBar(
