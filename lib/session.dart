@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'main.dart';
@@ -37,13 +38,14 @@ class _createSessionState extends State<createSession> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 // Validate returns true if the form is valid, or false otherwise.
-                print('Button Pressed');
+                print('signout button pressed');
 
                 // If the form is valid, display a snackbar. In the real world,
                 // you'd often call a server or save the information in a database.
-                runApp(MyApp());
+                await FirebaseAuth.instance.signOut();
+                runApp(const MyApp());
               },
               child: const Text('Submit'),
             ),

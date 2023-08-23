@@ -17,16 +17,16 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -49,6 +49,17 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyDDDxmt4aG-1GgQKEvnRROhlo3uy9WVUM4',
+    appId: '1:836929855785:web:08e10c8292695b0ffc9738',
+    messagingSenderId: '836929855785',
+    projectId: 'pagadai-firebase',
+    authDomain: 'pagadai-firebase.firebaseapp.com',
+    databaseURL: 'https://pagadai-firebase-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'pagadai-firebase.appspot.com',
+    measurementId: 'G-6ZEP7SY06F',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDJHClyIrpHfs5QNQD6vNl1bS-m1-TgvOQ',
     appId: '1:836929855785:android:36f44323b7e29ae1fc9738',
@@ -56,16 +67,5 @@ class DefaultFirebaseOptions {
     projectId: 'pagadai-firebase',
     databaseURL: 'https://pagadai-firebase-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'pagadai-firebase.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCnadUOtsUJZnuZHog7wYfH0bLo2JgZ32Q',
-    appId: '1:836929855785:ios:a327e43947389589fc9738',
-    messagingSenderId: '836929855785',
-    projectId: 'pagadai-firebase',
-    databaseURL: 'https://pagadai-firebase-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'pagadai-firebase.appspot.com',
-    iosClientId: '836929855785-99cesdb0qrfi99krr64cibu8cqarhiqo.apps.googleusercontent.com',
-    iosBundleId: 'com.sura.pagadai.pagadai',
   );
 }

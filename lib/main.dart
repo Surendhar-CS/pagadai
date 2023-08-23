@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'firebase_options.dart';
 import 'session.dart';
 
-void main() {
+Future<void> main() async {
   runApp(const MyApp());
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -105,25 +108,9 @@ class _LoginPageState extends State<LoginPage> {
                     if (_userName.currentState!.validate() &&
                         _passWord.currentState!.validate()) {
                       // If the form is valid, display a snackbar. In the real world,
-                      await Firebase.initializeApp(
-                        options: DefaultFirebaseOptions.currentPlatform,
-                      );
+
                       // you'd often call a server or save the information in a database.
-                      try {
-                        final credential = await FirebaseAuth.instance
-                            .signInWithEmailAndPassword(
-                                email: username, password: password);
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == 'user-not-found') {
-                          print('No user found for that email.');
-                        } else if (e.code == 'wrong-password') {
-                          print('Wrong password provided for that user.');
-                        }
-                      }
-                      if (FirebaseAuth.instance.currentUser != null) {
-                        print(FirebaseAuth.instance.currentUser?.uid);
-                        runApp(session());
-                      }
+                      await Login();
                     }
                   },
                   child: const Text('Submit'),
@@ -132,5 +119,22 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
         ]));
+  }
+
+  Future<void> Login() async {
+    try {
+      final credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: username, password: password);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
+    if (FirebaseAuth.instance.currentUser != null) {
+      print(FirebaseAuth.instance.currentUser?.uid);
+      runApp(session());
+    }
   }
 }
