@@ -1,4 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
+import 'firebase_options.dart';
+import 'session.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,6 +35,11 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _passWord = GlobalKey<FormState>();
   final _userName = GlobalKey<FormState>();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  late String username;
+  late String password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +57,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Form(
               key: _userName,
               child: TextFormField(
+                controller: usernameController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Enter a Username',
@@ -65,6 +76,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Form(
               key: _passWord,
               child: TextFormField(
+                controller: passwordController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Enter your Password',
@@ -84,16 +96,34 @@ class _LoginPageState extends State<LoginPage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    username = usernameController.text;
+                    password = passwordController.text;
+
                     // Validate returns true if the form is valid, or false otherwise.
                     print('Button Pressed');
                     if (_userName.currentState!.validate() &&
                         _passWord.currentState!.validate()) {
                       // If the form is valid, display a snackbar. In the real world,
-                      // you'd often call a server or save the information in a database.
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Processing Data')),
+                      await Firebase.initializeApp(
+                        options: DefaultFirebaseOptions.currentPlatform,
                       );
+                      // you'd often call a server or save the information in a database.
+                      try {
+                        final credential = await FirebaseAuth.instance
+                            .signInWithEmailAndPassword(
+                                email: username, password: password);
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'user-not-found') {
+                          print('No user found for that email.');
+                        } else if (e.code == 'wrong-password') {
+                          print('Wrong password provided for that user.');
+                        }
+                      }
+                      if (FirebaseAuth.instance.currentUser != null) {
+                        print(FirebaseAuth.instance.currentUser?.uid);
+                        runApp(session());
+                      }
                     }
                   },
                   child: const Text('Submit'),

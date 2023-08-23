@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "836929855785",
+    "firebase_url": "https://pagadai-firebase-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "pagadai-firebase",
+    "storage_bucket": "pagadai-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836929855785:android:36f44323b7e29ae1fc9738",
+        "android_client_info": {
+          "package_name": "com.sura.pagadai.pagadai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "836929855785-2bj33n2meh7nsgces0t9jbd4h5tmaacv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJHClyIrpHfs5QNQD6vNl1bS-m1-TgvOQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "836929855785-2bj33n2meh7nsgces0t9jbd4h5tmaacv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "836929855785-99cesdb0qrfi99krr64cibu8cqarhiqo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sura.pagadai.pagadai"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

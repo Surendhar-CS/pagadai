@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>836929855785-99cesdb0qrfi99krr64cibu8cqarhiqo.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.836929855785-99cesdb0qrfi99krr64cibu8cqarhiqo</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCnadUOtsUJZnuZHog7wYfH0bLo2JgZ32Q</string>
+	<key>GCM_SENDER_ID</key>
+	<string>836929855785</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.sura.pagadai.pagadai</string>
+	<key>PROJECT_ID</key>
+	<string>pagadai-firebase</string>
+	<key>STORAGE_BUCKET</key>
+	<string>pagadai-firebase.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:836929855785:ios:a327e43947389589fc9738</string>
+	<key>DATABASE_URL</key>
+	<string>https://pagadai-firebase-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+</dict>
+</plist>
