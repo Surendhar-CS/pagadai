@@ -53,72 +53,88 @@ class _LoginPageState extends State<LoginPage> {
           ),
           backgroundColor: Colors.indigo,
         ),
-        body: Column(children: <Widget>[
-          Text("Hello World"),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-            child: Form(
-              key: _userName,
-              child: TextFormField(
-                controller: usernameController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Enter a Username',
+        body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text("Hello World"),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                child: Form(
+                  key: _userName,
+                  child: TextFormField(
+                    controller: usernameController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Enter a Username',
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter the username';
+                      }
+                      return null;
+                    },
+                  ),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter the username';
-                  }
-                  return null;
-                },
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-            child: Form(
-              key: _passWord,
-              child: TextFormField(
-                controller: passwordController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Enter your Password',
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter the password';
-                  }
-                  return null;
-                },
-              ),
-            ),
-          ),
-          Row(
-            children: [
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                child: ElevatedButton(
-                  onPressed: () async {
-                    username = usernameController.text;
-                    password = passwordController.text;
-
-                    // Validate returns true if the form is valid, or false otherwise.
-                    print('Button Pressed');
-                    if (_userName.currentState!.validate() &&
-                        _passWord.currentState!.validate()) {
-                      // If the form is valid, display a snackbar. In the real world,
-
-                      // you'd often call a server or save the information in a database.
-                      await Login();
-                    }
-                  },
-                  child: const Text('Submit'),
+                child: Form(
+                  key: _passWord,
+                  child: TextFormField(
+                    obscureText: true,
+                    controller: passwordController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Enter your Password',
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter the password';
+                      }
+                      return null;
+                    },
+                  ),
                 ),
               ),
-            ],
-          ),
-        ]));
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 16),
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        username = usernameController.text;
+                        password = passwordController.text;
+
+                        // Validate returns true if the form is valid, or false otherwise.
+                        print('Button Pressed');
+                        if (_userName.currentState!.validate() &&
+                            _passWord.currentState!.validate()) {
+                          // If the form is valid, display a snackbar. In the real world,
+
+                          // you'd often call a server or save the information in a database.
+                          await Login();
+                          if (FirebaseAuth.instance.currentUser == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Invalid credentials',
+                                        style: TextStyle(color: Colors.red))));
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => session()),
+                            );
+                          }
+                        }
+                      },
+                      child: const Text('Submit'),
+                    ),
+                  ),
+                ],
+              ),
+            ]));
   }
 
   Future<void> Login() async {
@@ -134,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
     }
     if (FirebaseAuth.instance.currentUser != null) {
       print(FirebaseAuth.instance.currentUser?.uid);
-      runApp(session());
+      // runApp(session());
     }
   }
 }

@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'main.dart';
-
 class session extends StatefulWidget {
   const session({Key? key}) : super(key: key);
 
@@ -29,12 +27,13 @@ class createSession extends StatefulWidget {
 }
 
 class _createSessionState extends State<createSession> {
+  String user = "Surendhar";
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
         children: [
-          const Text("Welcome to the second page"),
+          Text(FirebaseAuth.instance.currentUser as String),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
             child: ElevatedButton(
@@ -45,7 +44,8 @@ class _createSessionState extends State<createSession> {
                 // If the form is valid, display a snackbar. In the real world,
                 // you'd often call a server or save the information in a database.
                 await FirebaseAuth.instance.signOut();
-                runApp(const MyApp());
+                // runApp(const MyApp());
+                Navigator.of(context, rootNavigator: true).pop();
               },
               child: const Text('Submit'),
             ),
