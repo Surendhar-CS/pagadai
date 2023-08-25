@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 
 import 'firebase_options.dart';
 import 'session.dart';
+import 'signupform.dart';
 
 Future<void> main() async {
-  runApp(const MyApp());
+  runApp(MaterialApp(home: MyApp()));
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -121,10 +122,11 @@ class _LoginPageState extends State<LoginPage> {
                                     content: Text('Invalid credentials',
                                         style: TextStyle(color: Colors.red))));
                           } else {
+                            // ignore: use_build_context_synchronously
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => session()),
+                                  builder: (context) => const session()),
                             );
                           }
                         }
@@ -132,6 +134,21 @@ class _LoginPageState extends State<LoginPage> {
                       child: const Text('Submit'),
                     ),
                   ),
+                  GestureDetector(
+                    child: const Text(
+                      "Create new account",
+                      style: TextStyle(
+                        color: Colors.lightBlueAccent,
+                      ),
+                    ),
+                    onTap: () {
+                      print("new account intiatiated");
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const signupform()));
+                    },
+                  )
                 ],
               ),
             ]));

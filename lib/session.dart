@@ -11,10 +11,8 @@ class session extends StatefulWidget {
 class _sessionState extends State<session> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: createSession(),
-      ),
+    return const Scaffold(
+      body: createSession(),
     );
   }
 }
@@ -27,13 +25,14 @@ class createSession extends StatefulWidget {
 }
 
 class _createSessionState extends State<createSession> {
-  String user = "Surendhar";
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
+        // mainAxisAlignment: MainAxisAlignment.center,
+        // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(FirebaseAuth.instance.currentUser as String),
+          Text("Welcome to the second screen"),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
             child: ElevatedButton(
@@ -45,9 +44,9 @@ class _createSessionState extends State<createSession> {
                 // you'd often call a server or save the information in a database.
                 await FirebaseAuth.instance.signOut();
                 // runApp(const MyApp());
-                Navigator.of(context, rootNavigator: true).pop();
+                Navigator.of(context).pop();
               },
-              child: const Text('Submit'),
+              child: const Text('Logout'),
             ),
           ),
         ],
